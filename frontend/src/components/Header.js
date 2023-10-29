@@ -17,7 +17,7 @@ function Header() {
       <ul className="flex justify-end mr-8 space-x-8 text-xl body text-brand_orange">
         <li className="cursor-pointer justify-evenly">DashBoard</li>
         <li className="cursor-pointer justify-evenly">Sustainability</li>
-        <li className="cursor-pointer justify-evenly">Sign Up</li>
+        <li className="cursor-pointer justify-evenly">Register</li>
       </ul>
     </nav>
   );

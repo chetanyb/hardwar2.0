@@ -9,6 +9,7 @@ module.exports = {
         brand_orange: "#DF4E21",
         brand_yellow: "#CE9929",
         brand_maroon: "#3C1120",
+        brand_orange_darker: "#C04C1A",
       },
     },
   },

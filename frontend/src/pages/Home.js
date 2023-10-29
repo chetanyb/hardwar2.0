@@ -1,11 +1,14 @@
 import React from "react";
 import Header from "../components/Header";
+import Signup from "../components/Signup";
 
 function Home() {
   return (
-    <div>
+    <div className="flex flex-col h-screen bg-slate-200">
       <Header />
-      <h1>Home Page</h1>
+      <div className="flex-grow flex items-center justify-center">
+        <Signup />
+      </div>
     </div>
   );
 }
