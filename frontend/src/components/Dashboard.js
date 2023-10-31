@@ -10,11 +10,10 @@ function Dashboard() {
   const [data, setData] = useState(null);
 
   const fetchData = async () => {
-    // Assume the URL 'http://your-backend-url/data' is where your data can be fetched
-    //const response = await fetch("http://localhost/data");
-    //const fetchedData = await response.json();
-    //setData(fetchedData);
-    const numPoints = 12;
+    const response = await fetch("http://localhost:5000/api/sensor/read");
+    const fetchedData = await response.json();
+    setData(fetchedData);
+    /*const numPoints = 12;
     const currentTime = new Date().getTime();
     const newData = Array.from({ length: numPoints }, (_, index) => ({
       time: new Date(currentTime - index * 3600000).toISOString(),
@@ -25,7 +24,7 @@ function Dashboard() {
       soilMoisture: Math.floor(Math.random() * 100),
       waterPh: Math.floor(Math.random() * 100),
     }));
-    setData(newData);
+    setData(newData);*/
   };
 
   useEffect(() => {
