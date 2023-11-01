@@ -1,15 +1,23 @@
-const { getUserByEmail } = require("../utils/getUserByEmail");
-const Users = require("../models//users");
+const { Op } = require("sequelize");
+const { getUserByIdentifier } = require("../utils/getUserByIdentifier");
+const Users = require("../models/users");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 exports.signup = async (req, res, next) => {
-  const { first_name, last_name, email, mobile_number, password } = req.body;
+  const { username, email, password } = req.body;
 
   try {
-    // Check if email exists
-    const existingUser = await Users.findOne({ where: { email } });
+    // Check if email or username exists
+    const existingUser = await Users.findOne({
+      where: { [Op.or]: [{ email }, { username }] },
+    });
+    console.log(`User input: ${JSON.stringify(req.body)}`);
     if (existingUser) {
-      return res.status(409).send({ error: "Email already exists" });
+      return res
+        .status(409)
+        .send({ error: "Email or Username already exists" });
     }
 
     // Hash the password
@@ -21,24 +29,60 @@ exports.signup = async (req, res, next) => {
       email,
       password: hashedPassword,
     });
+    const token = jwt.sign(
+      { userId: newUser.username },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "24h",
+      }
+    );
+
+    const userToSend = {
+      username: newUser.username,
+      email: newUser.email,
+    };
 
     res
       .status(201)
-      .json({ success: "User created successfully", user: newUser });
+      .json({ success: "User created successfully", token, user: userToSend });
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    res.status(500).send({ error: error });
   }
 };
 
-exports.readUsers = async (req, res) => {
-  const { email } = req.params;
+exports.signin = async (req, res, next) => {
+  const { identifier, password } = req.body;
+
   try {
-    const user = await getUserByEmail(email);
+    // Find user by email or username
+    const user = await getUserByIdentifier(identifier);
     if (!user) {
-      res.status(404).send({ error: "User not found" });
-    } else {
-      res.status(200).send(user);
+      return res.status(404).send({ error: "User not found" });
     }
+
+    // Compare passwords
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).send({ error: "Incorrect password" });
+    }
+
+    // Sign in successful
+    const token = jwt.sign({ userId: user.username }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
+    });
+
+    const userToSend = {
+      username: user.username,
+      email: user.email,
+    };
+
+    res
+      .status(200)
+      .json({
+        success: "User signed in successfully",
+        token,
+        user: userToSend,
+      });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }

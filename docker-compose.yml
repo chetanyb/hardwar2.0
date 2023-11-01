@@ -4,12 +4,16 @@ services:
     build: ./frontend
     ports:
       - "3000:3000"
+    volumes:
+      - ./frontend:/usr/src/app
   backend:
     build: ./backend
     ports:
       - "5000:5000"
     depends_on:
       - cockroachdb
+    volumes:
+      - ./backend:/usr/src/app
   cockroachdb:
     image: cockroachdb/cockroach:v20.2.8
     command: start-single-node --insecure

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../AuthProvider";
 import logo from "../sita_logo.png";
 
 function Header() {
+  const { user } = useContext(AuthContext);
+  const token = localStorage.getItem("token");
+  console.log(`Token: ${token}`);
+  console.log(`User: ${user}`);
+
   return (
     <nav className="w-screen grid grid-cols-2 items-center py-2 mx-auto bg-brand_maroon">
       <div className="flex items-center ml-8">
@@ -17,7 +23,13 @@ function Header() {
       <ul className="flex justify-end mr-8 space-x-8 text-xl body text-brand_orange">
         <li className="cursor-pointer justify-evenly">DashBoard</li>
         <li className="cursor-pointer justify-evenly">Sustainability</li>
-        <li className="cursor-pointer justify-evenly">Register</li>
+        {user ? (
+          <li className="cursor-pointer justify-evenly">Welcome, {user}</li>
+        ) : (
+          <li className="cursor-pointer justify-evenly">
+            <a href="http://localhost:3000/">Signup</a>
+          </li>
+        )}
       </ul>
     </nav>
   );
