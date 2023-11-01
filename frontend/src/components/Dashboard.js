@@ -3,6 +3,7 @@ import NPKChart from "./NPKChart";
 import SoilTemperatureChart from "./SoilTemperatureChart";
 import SoilMoistureChart from "./SoilMoistureChart";
 import WaterPhChart from "./WaterPhChart";
+import Map from "./Maps";
 /*import WeatherForecastChart from "./WeatherForecastChart";
 import CurrentWeatherChart from "./CurrentWeatherChart";*/
 
@@ -36,12 +37,6 @@ function Dashboard() {
 
   return (
     <div className="dashboard" style={{ width: "100%", height: "100%" }}>
-      <NPKChart data={data} />
-      <SoilTemperatureChart data={data} />
-      <SoilMoistureChart data={data} />
-      <WaterPhChart data={data} />
-      {/*...*/}
-
       {/*<WeatherForecastChart data={data.weatherForecast} />
   <CurrentWeatherChart data={data.currentWeather} />*/}
     </div>
