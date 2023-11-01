@@ -1,15 +1,14 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import * as turf from "@turf/turf";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiY2hldGhhY2siLCJhIjoiY2xrMHE2N3FoMG5zMzNwcWx3MGMxaWs2ZCJ9.vOhk3R7yY9s6_hscXFfh6w";
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const Map = () => {
+const Map = ({ onAreaUpdate }) => {
   const map = useRef(null);
   const mapContainer = useRef(null);
-  const [area, setArea] = useState(0);
 
   const lng = 78.0322;
   const lat = 30.3165;
@@ -34,18 +33,36 @@ const Map = () => {
       defaultMode: "draw_polygon",
     });
 
-    function updateArea(e) {
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl,
+      container: "geocoder",
+    });
+
+    map.current.addControl(draw);
+    map.current.addControl(geocoder);
+
+    async function updateArea(e) {
       const data = draw.getAll();
       if (data.features.length > 0) {
         const areaValue = turf.area(data);
         const rounded_area = Math.round(areaValue * 100) / 100;
-        setArea(rounded_area);
+        const pointGeo = turf.centerOfMass(data);
+
+        // Get the country information
+        const response = await fetch(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${pointGeo.geometry.coordinates[0]},${pointGeo.geometry.coordinates[1]}.json?access_token=${mapboxgl.accessToken}`
+        );
+        const geoData = await response.json();
+        const country = geoData.features.find((feature) =>
+          feature.id.includes("country")
+        ).place_name;
+
+        onAreaUpdate(rounded_area, pointGeo, country);
       } else {
         if (e.type !== "draw.delete") alert("Click the map to draw a polygon.");
       }
     }
-
-    map.current.addControl(draw);
 
     map.current.on("draw.create", updateArea);
     map.current.on("draw.delete", updateArea);
@@ -53,23 +70,10 @@ const Map = () => {
   });
 
   return (
-    <div>
-      <div
-        style={{
-          width: "40%",
-          height: "50vh",
-        }}
-        className="map-container"
-        ref={mapContainer}
-      />
-      <div
-        style={{
-          width: "40%",
-        }}
-      >
-        Area: {area} square meters
-      </div>{" "}
-      {}
+    <div className="absolute inset-0">
+      <div ref={mapContainer} className="w-full h-full" />
+      <div id="geocoder" className="geocoder"></div>{" "}
+      {/* New geocoder container */}
     </div>
   );
 };

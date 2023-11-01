@@ -4,7 +4,6 @@ import NPKChart from "../components/NPKChart";
 import SoilTemperatureChart from "../components/SoilTemperatureChart";
 import SoilMoistureChart from "../components/SoilMoistureChart";
 import WaterPhChart from "../components/WaterPhChart";
-import Map from "../components/Maps";
 /*import WeatherForecastChart from "./WeatherForecastChart";
 import CurrentWeatherChart from "./CurrentWeatherChart";*/
 
@@ -44,7 +43,6 @@ function Dashboard() {
         <SoilTemperatureChart data={data} />
         <SoilMoistureChart data={data} />
         <WaterPhChart data={data} />
-        <Map data={data} />
         {/*<WeatherForecastChart data={data.weatherForecast} />
   <CurrentWeatherChart data={data.currentWeather} />*/}
       </div>

@@ -11,7 +11,7 @@ function Signup() {
 
   useEffect(() => {
     if (isAuthenticated && token) {
-      navigate("/dashboard");
+      navigate("/landinfo");
     }
   }, [isAuthenticated, token, navigate]);
 
@@ -32,13 +32,13 @@ function Signup() {
           await signUp(username.value, email.value, password.value);
           toast.success("Signed up successfully");
           setTimeout(() => {
-            navigate("/dashboard");
+            navigate("/landinfo");
           }, 2000);
         } else {
           await signIn(email.value, password.value);
           toast.success("Signed in successfully");
           setTimeout(() => {
-            navigate("/dashboard");
+            navigate("/landinfo");
           }, 2000);
         }
       } catch (error) {

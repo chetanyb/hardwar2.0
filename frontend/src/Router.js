@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
+import LandInfo from "./pages/LandInfo";
 
 function Router() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -17,6 +18,10 @@ function Router() {
           element={
             isAuthenticated ? <Dashboard /> : <Navigate to="/" replace />
           }
+        />
+        <Route
+          path="/landinfo"
+          element={isAuthenticated ? <LandInfo /> : <Navigate to="/" replace />}
         />
       </Routes>
     </BrowserRouter>

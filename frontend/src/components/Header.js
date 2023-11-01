@@ -5,8 +5,6 @@ import logo from "../sita_logo.png";
 function Header() {
   const { user } = useContext(AuthContext);
   const token = localStorage.getItem("token");
-  console.log(`Token: ${token}`);
-  console.log(`User: ${user}`);
 
   return (
     <nav className="w-screen grid grid-cols-2 items-center py-2 mx-auto bg-brand_maroon">
@@ -24,7 +22,9 @@ function Header() {
         <li className="cursor-pointer justify-evenly">DashBoard</li>
         <li className="cursor-pointer justify-evenly">Sustainability</li>
         {user ? (
-          <li className="cursor-pointer justify-evenly">Welcome, {user}</li>
+          <li className="cursor-pointer justify-evenly">
+            Welcome, {user.username}
+          </li>
         ) : (
           <li className="cursor-pointer justify-evenly">
             <a href="http://localhost:3000/">Signup</a>

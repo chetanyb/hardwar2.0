@@ -11,6 +11,10 @@ module.exports = {
         brand_maroon: "#3C1120",
         brand_orange_darker: "#C04C1A",
       },
+      fontFamily: {
+        merriweather: ["Merriweather", "serif"],
+        roboto: ["Roboto", "sans-serif"],
+      },
     },
   },
   plugins: [],

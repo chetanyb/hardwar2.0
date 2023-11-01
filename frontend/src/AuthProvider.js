@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         throw new Error(data.error || "Sign up failed");
       }
       setIsAuthenticated(true);
-      setUser(data.user.username);
+      setUser(data.user);
       setToken(data.token);
     } catch (error) {
       console.error(error);
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
         throw new Error(data.error || "Sign in failed");
       }
       setIsAuthenticated(true);
-      setUser(data.user.username);
+      setUser(data.user);
       setToken(data.token);
     } catch (error) {
       console.error(error);

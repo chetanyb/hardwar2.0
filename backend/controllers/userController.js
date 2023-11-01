@@ -13,7 +13,6 @@ exports.signup = async (req, res, next) => {
     const existingUser = await Users.findOne({
       where: { [Op.or]: [{ email }, { username }] },
     });
-    console.log(`User input: ${JSON.stringify(req.body)}`);
     if (existingUser) {
       return res
         .status(409)
@@ -40,6 +39,7 @@ exports.signup = async (req, res, next) => {
     const userToSend = {
       username: newUser.username,
       email: newUser.email,
+      id: newUser.id,
     };
 
     res
@@ -74,15 +74,14 @@ exports.signin = async (req, res, next) => {
     const userToSend = {
       username: user.username,
       email: user.email,
+      id: user.id,
     };
 
-    res
-      .status(200)
-      .json({
-        success: "User signed in successfully",
-        token,
-        user: userToSend,
-      });
+    res.status(200).json({
+      success: "User signed in successfully",
+      token,
+      user: userToSend,
+    });
   } catch (error) {
     res.status(500).send({ error: error.message });
   }
