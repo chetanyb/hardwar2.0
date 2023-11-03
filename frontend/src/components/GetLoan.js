@@ -121,7 +121,8 @@ const GetLoan = ({creditValue}) => {
       await provider.send('eth_requestAccounts', []);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, contractABI, signer);
-      const tx = await contract.createCreditRequest(ethers.utils.parseUnits(creditValue, 6));
+	  const roundedCreditValue = parseFloat(creditValue).toFixed(6);
+      const tx = await contract.createCreditRequest(ethers.utils.parseUnits(roundedCreditValue, 6));
       await tx.wait();
       console.log("Transaction Mined!");
       setTransactionStatus('Transaction successful!');

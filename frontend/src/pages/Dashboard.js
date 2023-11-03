@@ -12,11 +12,13 @@ import GetLoan from "../components/GetLoan";
 function Dashboard() {
   const [data, setData] = useState(null);
   const [satelliteData, setSatelliteData] = useState(null); 
+  const [creditValue, setCreditValue] = useState(null);
   const { user } = useContext(AuthContext);
   const fetchData = async () => {
     const response = await fetch("http://localhost:5000/api/sensor/read");
     const fetchedData = await response.json();
     setData(fetchedData);
+    setCreditValue(fetchedData.creditValue);
   };
 const requestPayload = {
   userId: user.id,
@@ -62,7 +64,7 @@ const requestPayload = {
           <WeatherBox data={satelliteData} />
         </div>
         <div className="bg-white p-4 rounded-lg shadow-lg">
-        <GetLoan data={satelliteData && satelliteData.creditValue} />
+          <GetLoan creditValue={satelliteData && satelliteData.creditValue} />
       </div>
       </div>
     </div>
