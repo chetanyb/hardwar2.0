@@ -4,9 +4,15 @@ const cockroach = require("../config/sequelize");
 const Lands = cockroach.define(
   "lands",
   {
-    user_id: {
-      type: DataTypes.INTEGER,
+    land_id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false,
+    },
+    user_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
       references: {
         model: "users",
         key: "id",
@@ -26,6 +32,14 @@ const Lands = cockroach.define(
     },
     longitude: {
       type: DataTypes.DECIMAL(9, 6),
+      allowNull: true,
+    },
+    polygon_coordinates: {
+      type: DataTypes.JSONB,
+      allowNull: true,
+    },
+    polygon_id: {
+      type: DataTypes.STRING(255),
       allowNull: true,
     },
   },

@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard";
 import { useContext } from "react";
 import { AuthContext } from "./AuthProvider";
 import LandInfo from "./pages/LandInfo";
+import LoanTest from "./pages/test";
+import Sustainability from "./pages/Sustainability";
 
 function Router() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -23,6 +25,11 @@ function Router() {
           path="/landinfo"
           element={isAuthenticated ? <LandInfo /> : <Navigate to="/" replace />}
         />
+        {/* Route with no authentication */}
+        <Route path="/test" element={<LoanTest creditValue={'1'} />} />
+        <Route path="/sustainability" element={<Sustainability />} />
+
+        
       </Routes>
     </BrowserRouter>
   );

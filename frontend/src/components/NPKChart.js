@@ -50,7 +50,11 @@ function NPKChart({ data }) {
     }
   }, [data]);
 
-  return <svg ref={ref} width="400" height="300"></svg>;
+  return (
+    <div className="bg-white p-4 rounded-lg shadow-lg">
+      <svg ref={ref} width="400" height="300"></svg>
+    </div>
+  );
 }
 
 export default NPKChart;

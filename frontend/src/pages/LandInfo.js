@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Map from "../components/Maps";
 import { AuthContext } from "../AuthProvider";
-import "./mapbox.css";
 
 function LandInfo() {
   const [area, setArea] = useState(0);
   const [country, setCountry] = useState("");
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
+  const [polygonCoordinates, setPolygonCoordinates] = useState([]);
+  const [polygonId, setPolygonId] = useState("");
   const { isAuthenticated, token, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -26,11 +27,14 @@ function LandInfo() {
         country,
         latitude: coordinates.lat,
         longitude: coordinates.lng,
+        polygonCoordinates,
         id: user_id,
       }),
     });
 
     if (response.ok) {
+      const data = await response.json();
+      setPolygonId(data.polygonId);
       navigate("/dashboard");
     } else {
       console.error("Failed to submit data:", await response.text());
@@ -50,13 +54,14 @@ function LandInfo() {
           </h2>
           <div className="flex-grow relative">
             <Map
-              onAreaUpdate={(area, pointGeo, country) => {
+              onAreaUpdate={(area, pointGeo, country, polygonCoordinates) => {
                 setArea(area);
                 setCountry(country);
                 setCoordinates({
                   lat: pointGeo.geometry.coordinates[1],
                   lng: pointGeo.geometry.coordinates[0],
                 });
+                setPolygonCoordinates(polygonCoordinates);
               }}
             />
           </div>
