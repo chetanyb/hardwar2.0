@@ -33,19 +33,19 @@ NOTE: To calculate credit value, you have to create getCreditValue function with
    - frontend:
       1. ` REACT_APP_MAPBOX_ACCESS_TOKEN  `
    - backend:
-      1. ` DB_USER `
-      2. ` DB_PASS `
-      3. ` DB_NAME `
-      4. ` DB_HOST `
-      5. ` DB_PORT `
-      6. ` JWT_SECRET `
-      7. ` INFLUXDB_BUCKET `
-      8. ` INFLUXDB_ORG `
-      9. ` INFLUXDB_URL `
-      10. ` INFLUXDB_TOKEN `
-      11. ` OPENWEATHERMAPS_KEY `
-      12. ` AGRO_MONITOR_API_KEY `
-      13. ` OPENAI_KEY `
+      1. ` DB_USER ` : This is the username for the CockroachDB database
+      2. ` DB_PASS ` : The password for the user entered above
+      3. ` DB_NAME ` : Name of the database
+      4. ` DB_HOST ` : Host name is cockroachdb by default
+      5. ` DB_PORT ` : Port is 26257 by default
+      6. ` JWT_SECRET ` : The secret for your JWT tokens
+      7. ` INFLUXDB_BUCKET ` : Bucket name within your InfluxDB
+      8. ` INFLUXDB_ORG ` : Your organization name within InfluxDB
+      9. ` INFLUXDB_URL ` : URL/host to your InfluxDB database
+      10. ` INFLUXDB_TOKEN ` : Your InfluxDB token
+      11. ` OPENWEATHERMAPS_KEY ` : Your OpenWeatherMaps API key
+      12. ` AGRO_MONITOR_API_KEY ` : Your AgroMonitoring API KEY
+      13. ` OPENAI_KEY ` : Your OpenAI API key
 5. Create and setup the env.h for sensors
    - ```bash
        touch sensors/lib/env.h
