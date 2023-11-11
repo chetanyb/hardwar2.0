@@ -3,7 +3,7 @@
 #include <InfluxDbClient.h>
 #include <InfluxDbCloud.h>
 #include <SHT1x-ESP.h>
-#include <../lib/env.h>
+#include <../lib/env.h> //this is the header file that holds the credentials for the InfluxDB
 #include <WiFiClientSecure.h>
 
 #define PH_SENSOR_PIN 34
