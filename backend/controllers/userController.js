@@ -28,7 +28,7 @@ exports.signup = async (req, res, next) => {
       email,
       password: hashedPassword,
     });
-    //save jwt
+    //save jwt fix
     const token = jwt.sign(
       { userId: newUser.username },
       process.env.JWT_SECRET,
