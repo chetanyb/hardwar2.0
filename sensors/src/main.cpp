@@ -16,7 +16,7 @@
 
 unsigned long int avgValue;
 int buf[10], temp;
-
+//creating instance of InfluxDB client class and WiFi client class
 WiFiClientSecure wifiClient;
 InfluxDBClient client(INFLUXDB_URL, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_TOKEN, InfluxDbCloud2CACert);
 
