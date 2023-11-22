@@ -70,7 +70,7 @@ NOTE: To calculate credit value, you have to create getCreditValue function with
       docker-compose down
       ```
 7. Access your cockroachdb and create new user and fill in the details in your backend/.env
-8. Run the database scripts to create the required tables within your cockroachdb database
+8. Run the database scripts to create the required tables within your cockroachdb database(make sure you have configured the connection first)
    ```bash
    node backend/scripts/createuserTable.js
    node backend/scripts/createLandsTable.js
