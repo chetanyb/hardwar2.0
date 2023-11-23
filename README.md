@@ -59,6 +59,9 @@ NOTE: To calculate credit value, you have to create getCreditValue function with
       NOTE: Here's an example:
       ```bash
        #define INFLUXDB_TOKEN "your_token_here"
+       #define INFLUXDB_URL "your_db_url_here"
+       #define INFLUXDB_BUCKET "your_db_bucket_name"
+       #define INFLUXDB_ORG "your_cockroach_org_id"
        ```
 6. Docker-compose
    - Within the hardwar2.0 directory run
