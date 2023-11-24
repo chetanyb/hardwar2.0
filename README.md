@@ -8,7 +8,7 @@ NOTE: To calculate credit value, you have to create getCreditValue function with
 
    1. Docker
    2. docker-compose
-   3. PlatformIO extension installed
+   3. PlatformIO extension installed (I used VSCode)
    4. ESP32 microcontroller
    5. SHT-10 sensor
    6. pH Sensor
