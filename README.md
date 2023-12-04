@@ -63,7 +63,8 @@ NOTE: To calculate credit value, you have to create getCreditValue function with
        #define INFLUXDB_BUCKET "your_db_bucket_name"
        #define INFLUXDB_ORG "your_cockroach_org_id"
        ```
-6. Docker-compose
+6. Connect your microcontroller after making all the physical connections and upload the code to the device.
+7. Docker-compose
    - Within the hardwar2.0 directory run
       ```bash
       docker-compose up --build
@@ -72,10 +73,10 @@ NOTE: To calculate credit value, you have to create getCreditValue function with
       ```bash
       docker-compose down
       ```
-7. Access your cockroachdb and create new user and fill in the details in your backend/.env
-8. Run the database scripts to create the required tables within your cockroachdb database(make sure you have configured the connection first)
+8. Access your cockroachdb and create new user and fill in the details in your backend/.env
+9. Run the database scripts to create the required tables within your cockroachdb database(make sure you have configured the connection first)
    ```bash
    node backend/scripts/createuserTable.js
    node backend/scripts/createLandsTable.js
    ```
-7. Access the application at your localhost:3000
+10. Access the application at your localhost:3000
